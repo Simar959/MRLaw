@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Equation Solver</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: url(bg3.jpg) no-repeat;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .wrapper {
+            width: 420px;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, .2);
+            backdrop-filter: blur(9px);
+            color: #fff;
+            border-radius: 12px;
+            padding: 30px 40px;
+        }
+
+        h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+
+        .input-box {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        input {
+            width: 100%;
+            padding: 20px 45px 20px 20px;
+            background: transparent;
+            border: none;
+            outline: none;
+            border: 2px solid rgba(255, 255, 255, .2);
+            border-radius: 40px;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        i {
+            position: absolute;
+            right: 20px;
+            top: 30%;
+            transform: translate(-50%);
+            font-size: 20px;
+        }
+
+        .btn {
+            width: 100%;
+            height: 45px;
+            background: #fff;
+            border: none;
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        #resultDisplay {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Linear Equation Solver</h1>
+        <div class="input-box">
+            <label for="slope">Rate of Change (ROC)</label>
+            <input type="number" placeholder="Enter Rate of Change" id="slope" oninput="calculate()">
+            <i class='bx bxs-trending-up'></i>
+        </div>
+        <div class="input-box">
+            <label for="yIntercept">Initial Value (IV)</label>
+            <input type="number" placeholder="Enter Initial Value" id="yIntercept" oninput="calculate()">
+            <i class='bx bxs-yen'></i>
+        </div>
+        <div class="input-box">
+            <label for="yValue">Y Value</label>
+            <input type="number" placeholder="Enter Y Value" id="yValue" oninput="calculate()">
+            <i class='bx bxs-x'></i>
+        </div>
+        <div class="input-box">
+            <label for="xValue">X Value</label>
+            <input type="number" placeholder="Enter X Value" id="xValue" oninput="calculate()">
+            <i class='bx bxs-x'></i>
+        </div>
+        <button type="button" class="btn" onclick="calculate()">Calculate</button>
+        <div id="resultDisplay"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            var slope = parseFloat(document.getElementById('slope').value);
+            var yIntercept = parseFloat(document.getElementById('yIntercept').value);
+            var yValue = parseFloat(document.getElementById('yValue').value);
+            var xValue = parseFloat(document.getElementById('xValue').value);
+            var resultDisplay = document.getElementById('resultDisplay');
+
+            if (!isNaN(slope) && !isNaN(yIntercept)) {
+                if (!isNaN(yValue)) {
+                    var xResult = (yValue - yIntercept) / slope;
+                    resultDisplay.innerHTML = '<p>Result: X = ' + xResult.toFixed(2) + '</p>';
+                } else if (!isNaN(xValue)) {
+                    var yResult = slope * xValue + yIntercept;
+                    resultDisplay.innerHTML = '<p>Result: Y = ' + yResult.toFixed(2) + '</p>';
+                } else {
+                    resultDisplay.innerHTML = '';
+                }
+            } else {
+                resultDisplay.innerHTML = '';
+            }
+        }
+    </script>
+</body>
+</html>

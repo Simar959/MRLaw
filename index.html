@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bamboo Growth Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Your existing styles remain unchanged */
+
+        #resultDisplay {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #fff;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Bamboo Growth Calculator</h1>
+        <div class="input-box">
+            <input type="number" placeholder="Enter Bamboo Age (Days)" id="age" >
+            <i class='bx bxs-calendar'></i>
+        </div>
+        <div class="input-box">
+            <input type="number" placeholder="Enter Bamboo Height (Inches)" id="height">
+            <i class='bx bxs-ruler'></i>
+        </div>
+        <button type="button" class="btn" id="calculateBtn" onclick="displayResult()">Calculate</button>
+        <div id="resultDisplay"></div>
+    </div>
+
+    <script>
+        function calculateHeight() {
+            var ageInDays = parseFloat(document.getElementById('age').value);
+            var height = 36 * ageInDays; // Bamboo grows 36 inches in one day
+            document.getElementById('height').value = isNaN(height) ? '' : height.toFixed(2);
+        }
+
+        function calculateAge() {
+            var height = parseFloat(document.getElementById('height').value);
+            var ageInDays = height / 36; // Bamboo grows 36 inches in one day
+            document.getElementById('age').value = isNaN(ageInDays) ? '' : ageInDays.toFixed(2);
+        }
+
+        function displayResult() {
+            var ageInDays = parseFloat(document.getElementById('age').value);
+            var height = parseFloat(document.getElementById('height').value); 
+            var cappedHeight;
+
+            if (!isNaN(ageInDays)) {
+              height = 36 * ageInDays;
+              cappedHeight = Math.min(height, 1200);
+            }
+
+            if (!isNaN(height)) {
+              ageInDays = height / 36;
+              cappedHeight = Math.min(height, 1200);
+            }
+           
+            var resultDisplay = document.getElementById('resultDisplay');
+           
+            if (!isNaN(cappedHeight)) {
+                var heightString = (cappedHeight === 1 ? '1 Inch' : '\nBamboo height is ' + cappedHeight.toFixed(2) + ' Inches');
+                var ageString = (ageInDays === 1 ? '1 Day' : '\nBamboo age is ' + ageInDays.toFixed(2) + ' Days.');
+                var resultString = '<p><b>Result: ' + heightString + ' and ' + ageString + '</b></p>';
+                resultDisplay.innerHTML = resultString;
+            } else {
+                resultDisplay.innerHTML = '';
+            }
+
+            document.getElementById('age').value = "";
+            document.getElementById('height').value = "";
+        }
+
+        window.onkeydown = (e) => {
+          if (e.key == 'Enter') {
+            document.querySelector('#calculateBtn').click();
+          }
+          
+        }
+    </script>
+</body>
+</html>
